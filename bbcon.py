@@ -1,8 +1,10 @@
 """Behavior-based controller. Called by robot at each timestep to determine its next move"""
 from time import sleep
 from zumo_button import ZumoButton
-from motob import Motob
+import motob
+import behavior
 import arbitrator
+import sensob
 
 
 class Bbcon:
@@ -11,29 +13,29 @@ class Bbcon:
         """initialize controller-object. One object per robot -> initialized one time at start"""
         self.behaviors = []
         self.active_behaviors = []
-        self.inactive_behaviors = []
+        # self.inactive_behaviors = [] Mangler bruk av denne
         self.sensobs = []
         self.motobs = None
-        self.arbitrator = arbitrator(self)
-        self.current_timestep = 0
+        self.arbitrator = arbitrator.Arbitrator(self, True)
         self.halt_request = False
         self.motor_recs = ''
 
         # One instance per robot -> behaviors, sensobs and motobs are added at initialization
 
         # Add all behaviors to BBCON:
-        # self.add_behavior(className()) wander_randomly?
-        # self.add_behavior(className()) keep_in_area?
-        # self.add_behavior(className()) avoid_collision?
-        # self.add_behavior(className()) take_image?
+        self.add_behavior(behavior.SearchBehaviour())
+        self.add_behavior(behavior.AvoidLineBehaviour())
+        self.add_behavior(behavior.CollisionDetectionBehaviour())
+        self.add_behavior(behavior.AvoidObstacleBehaviour())
+        self.add_behavior(behavior.AttackBehaviour())
 
         # Add all sensobs to BBCON:
         for this_behavior in self.behaviors:
-            if this_behavior.get_sensob() not in self.sensobs and not None:  # sensobs are only added once
+            if this_behavior.get_sensob() not in self.sensobs and not None:  # sensobs added once
                 self.add_sensob(this_behavior.get_sensob())
 
         # Add motobs
-        self.motobs = Motobs()
+        self.motobs = motob.Motob()
 
     def add_behavior(self, new_behavior):
         """append a newly-created behavior object to behaviors list"""
@@ -57,8 +59,8 @@ class Bbcon:
         """method for core BBCON activity"""
 
         # Update all sensobs:
-        for this_sensob in self.sensobs:  # sensobs contains no duplicates because of the adding-process
-            if isinstance(this_sensob, sensob.CameraSensob) and len(self.motor_rec) != 1:
+        for this_sensob in self.sensobs:  # sensobs contains no duplicates
+            if isinstance(this_sensob, sensob.CameraSensob()) and len(self.motor_recs) != 1:
                 continue
             this_sensob.update()  # sensob fetches relevant sensor values (once per timestep)
 
@@ -67,7 +69,7 @@ class Bbcon:
             this_behavior.update()
 
         # Invoke arbitrator:
-        self.motor_recs, self.halt_request = self.arbitrator.choose_action()  # returns (motor_rec, half_request)
+        self.motor_recs, self.halt_request = self.arbitrator.choose_action()  # = (motor_rec, half_request)
 
         # Update the motob by giving motor recommendations:
         self.motobs[0].update(self.motor_recs)
