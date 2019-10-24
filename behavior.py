@@ -18,7 +18,7 @@ class Behavior:
         self.match_degree = 0.0
         self.weight = self.priority * self.match_degree
 
-    def consider_activation(self):
+    def consider_deactivation(self):
         """Called when the behaviour is active. Checks if it should deactivate and does so if needed"""
 
     def consider_activation(self):
@@ -27,6 +27,39 @@ class Behavior:
     def update(self):
         """The main interface between bbcon and behaviour.
         Updates the activity status, calls sense_and_act, updates weight"""
+        self.update_weight()
 
     def sense_and_act(self):
-        """Computations that uses sensob readings to produce motor recommendations"""
+        """Computations that uses sensob readings to produce motor recommendations. Updates match_degree"""
+
+    def update_weight(self):
+        self.weight = self.priority * self.match_degree
+
+
+class AvoidLineBehaviour(Behavior):
+    """Behaviour for staying inside the restricted area"""
+    def __init__(self):
+        self.__init__()  # Riktig måte?
+        self.sensobs
+        self.priority = 1
+        self.update_weight()
+
+    def consider_activation(self):
+        """Activates if the sensob sees the line"""
+
+    def consider_deactivation(self):
+        """Deactivates if the sensob doesn't see the line"""
+
+    def update(self):
+        """Updates the activity status, calls sense_and_act, update weight"""
+        if self.active_flag:
+            self.consider_deactivation()
+        else:
+            self.consider_activation()
+
+        self.sense_and_act()
+        self.update_weight()
+
+    def sense_and_act(self):
+        """Sets motor recommendations to turn away from the line. Updates match_degree"""
+
