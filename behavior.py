@@ -45,6 +45,26 @@ class Behavior:
         """Computes the weight"""
         self.weight = self.priority * self.match_degree
 
+    def get_weigth(self):
+        """Return the weight"""
+        return self.weight
+
+    def get_motor_recs(self):
+        """Returns the motor_recs"""
+        return self.motor_recs
+
+
+class SearchBehaviour(Behavior):
+    """Goes forward. Is always active"""
+    def __init__(self):
+        super(SearchBehaviour, self).__init__()
+        self.active_flag = True
+        self.motor_recs = ["F", 0.5]
+
+    def update(self):
+        """Does nothing"""
+
+
 
 class AvoidLineBehaviour(Behavior):
     """Behaviour for staying inside the restricted area"""
