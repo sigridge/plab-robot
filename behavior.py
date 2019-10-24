@@ -27,6 +27,12 @@ class Behavior:
     def update(self):
         """The main interface between bbcon and behaviour.
         Updates the activity status, calls sense_and_act, updates weight"""
+        if self.active_flag:
+            self.consider_deactivation()
+        else:
+            self.consider_activation()
+
+        self.sense_and_act()
         self.update_weight()
 
     def sense_and_act(self):
@@ -40,7 +46,7 @@ class AvoidLineBehaviour(Behavior):
     """Behaviour for staying inside the restricted area"""
     def __init__(self):
         self.__init__()  # Riktig måte?
-        self.sensobs
+        self.sensobs  # Set this
         self.priority = 1
         self.update_weight()
 
@@ -50,16 +56,24 @@ class AvoidLineBehaviour(Behavior):
     def consider_deactivation(self):
         """Deactivates if the sensob doesn't see the line"""
 
-    def update(self):
-        """Updates the activity status, calls sense_and_act, update weight"""
-        if self.active_flag:
-            self.consider_deactivation()
-        else:
-            self.consider_activation()
-
-        self.sense_and_act()
-        self.update_weight()
-
     def sense_and_act(self):
         """Sets motor recommendations to turn away from the line. Updates match_degree"""
 
+
+class CollisionDetectionBehaviour(Behavior):
+    """Detects an obstacle and halts the robot. OBS: Halt_request is always True"""
+    def __init__(self):
+        self.__init__()  # Riktig måte?
+        self.sensobs  # Set this
+        self.halt_request = True
+        self.priority = 1
+        self.update_weight()
+
+    def consider_deactivation(self):
+        """deactivates if no obstacles"""
+
+    def consider_activation(self):
+        """Activates if obstacle"""
+
+    def sense_and_act(self):
+        """Updates match_degree"""
