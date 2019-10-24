@@ -1,5 +1,12 @@
 """The main behaviour class and different versions as
 subclasses that implements the methods differently"""
+import sensob
+DISTANCE_SENSOB = sensob.DistanceSensob()
+IR_SENSOB = sensob.IRSensob()
+CAMERA_SENSOB = sensob.CameraSensob()
+
+
+
 
 
 class Behavior:
@@ -53,6 +60,13 @@ class Behavior:
         """Returns the motor_recs"""
         return self.motor_recs
 
+    def get_sensob(self):
+        """Returns sensob"""
+        return self.sensobs
+
+    def get_halt_request(self):
+        """Returns """
+
 
 class SearchBehaviour(Behavior):
     """Goes forward. Is always active"""
@@ -70,37 +84,49 @@ class AvoidLineBehaviour(Behavior):
     """Behaviour for staying inside the restricted area"""
     def __init__(self):
         super(AvoidLineBehaviour, self).__init__()
-        self.sensobs  # Set this
+        self.sensobs = IR_SENSOB
         self.priority = 1  # Tweak
         self.update_weight()
+        self.motor_recs = ["L", 0.5]
 
     def consider_activation(self):
         """Activates if the sensob sees the line"""
+        if self.sensobs.get_value() >= 0.75:
+            self.bbcon.activate_behavior(self)
 
     def consider_deactivation(self):
         """Deactivates if the sensob doesn't see the line"""
+        if self.sensobs.get_value() < 0.75:
+            self.bbcon.deactivate_behavior(self)
 
     def sense_and_act(self):
         """Sets motor recommendations to turn away from the line. Updates match_degree"""
+        self.match_degree = self.sensobs.get_value()
 
 
 class CollisionDetectionBehaviour(Behavior):
     """Detects an obstacle and halts the robot. OBS: Halt_request is always True"""
     def __init__(self):
         super(CollisionDetectionBehaviour, self).__init__()
-        self.sensobs  # Set this
+        self.sensobs = DISTANCE_SENSOB
         self.halt_request = True
         self.priority = 1  # Tweak
         self.update_weight()
+        self.motor_recs = ["S"]
 
     def consider_deactivation(self):
         """deactivates if no obstacles"""
+        if self.sensobs.get_value() > 10:
+            self.bbcon.deactivate_behavior(self)
 
     def consider_activation(self):
         """Activates if obstacle"""
+        if self.sensobs.get_value() <= 10:
+            self.bbcon.activate_behavior(self)
 
     def sense_and_act(self):
         """Updates match_degree based on proximity"""
+        self.match_degree = self.sensobs.get_value() / 50
 
 
 class AvoidObstacleBehaviour(Behavior):
@@ -108,33 +134,44 @@ class AvoidObstacleBehaviour(Behavior):
     Tries to avoid the obstacle"""
     def __init__(self):
         super(AvoidObstacleBehaviour, self).__init__()
-        self.sensobs  # Set this
+        self.sensobs = DISTANCE_SENSOB
         self.priority = 1  # Tweak
         self.update_weight()
+        self.motor_recs = ["R", 0.5]
 
     def consider_deactivation(self):
         """Deactivates if robot no longer halted (will need a var in CTRL for this)"""
+        if len(self.bbcon.motor_recs) != 1:
+            self.bbcon.deactivate_behavior(self)
 
     def consider_activation(self):
         """Activates if robot was halted (will need a var in CTRL for this)"""
+        if len(self.bbcon.motor_recs) == 1:
+            self.bbcon.activate_behavior(self)
 
     def sense_and_act(self):
         """Turns away from obstacle. Updates match_degree based on proximity"""
+        self.match_degree = self.sensobs.get_value() / 50
 
 
 class AttackBehaviour(Behavior):
     """Crashes into the obstacle if it's red"""
     def __init__(self):
         super(AttackBehaviour, self).__init__()
-        self.sensobs  # set this
+        self.sensobs = CAMERA_SENSOB
         self.priority = 5  # Tweak, Must be high
         self.update_weight()
 
     def consider_deactivation(self):
         """Deactivates if the robot is no longer halted"""
+        if len(self.bbcon.motor_recs) != 1:
+            self.bbcon.deactivate_behavior(self)
 
     def consider_activation(self):
-        """Activates if robot was halted AND the sensobs report X amount of green(?)"""
+        """Activates if robot was halted AND the sensobs report X amount of green"""
+        if len(self.bbcon.motor_recs) == 1 and self.sensobs.get_value() >= 0.6:
+            self.bbcon.activate_behavior(self)
 
     def sense_and_act(self):
-        """Rams into the obstacle. Match_degree based on proximity"""
+        """Rams into the obstacle. Match_degree based on amount of Green"""
+        self.match_degree = self.sensobs.get_value()
