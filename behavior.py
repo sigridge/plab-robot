@@ -51,7 +51,7 @@ class AvoidLineBehaviour(Behavior):
     def __init__(self):
         super(AvoidLineBehaviour, self).__init__()
         self.sensobs  # Set this
-        self.priority = 1
+        self.priority = 1  # Tweak
         self.update_weight()
 
     def consider_activation(self):
@@ -70,7 +70,7 @@ class CollisionDetectionBehaviour(Behavior):
         super(CollisionDetectionBehaviour, self).__init__()
         self.sensobs  # Set this
         self.halt_request = True
-        self.priority = 1
+        self.priority = 1  # Tweak
         self.update_weight()
 
     def consider_deactivation(self):
@@ -89,14 +89,32 @@ class AvoidObstacleBehaviour(Behavior):
     def __init__(self):
         super(AvoidObstacleBehaviour, self).__init__()
         self.sensobs  # Set this
-        self.priority = 1
+        self.priority = 1  # Tweak
         self.update_weight()
 
     def consider_deactivation(self):
-        """Activates if robot was halted (will need a var in CTRL for this)"""
+        """Deactivates if robot no longer halted (will need a var in CTRL for this)"""
 
     def consider_activation(self):
-        """Deactivates if robot no longer halted (will need a var in CTRL for this)"""
+        """Activates if robot was halted (will need a var in CTRL for this)"""
 
     def sense_and_act(self):
         """Turns away from obstacle. Updates match_degree based on proximity"""
+
+
+class AttackBehaviour(Behavior):
+    """Crashes into the obstacle if it's red"""
+    def __init__(self):
+        super(AttackBehaviour, self).__init__()
+        self.sensobs  # set this
+        self.priority = 5  # Tweak, Must be high
+        self.update_weight()
+
+    def consider_deactivation(self):
+        """Deactivates if the robot is no longer halted"""
+
+    def consider_activation(self):
+        """Activates if robot was halted AND the sensobs report X amount of green(?)"""
+
+    def sense_and_act(self):
+        """Rams into the obstacle. Match_degree based on proximity"""
