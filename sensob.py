@@ -1,7 +1,7 @@
+from PIL import Image
 import ultrasonic
 import reflectance_sensors
 import camera
-from PIL import Image
 
 
 class Sensob:
@@ -14,8 +14,7 @@ class Sensob:
 
     def update(self):
         """Updates all the sensors in the sensob with the update function to the sensor"""
-        for sensor in self.sensors:
-            sensor.update()
+        self.sensors.update()
 
     def get_value(self):
         """returns the value"""
@@ -23,8 +22,7 @@ class Sensob:
 
     def reset(self):
         """resets the sensors with their reset function"""
-        for sensor in self.sensors:
-            sensor.reset()
+        self.sensors.reset()
 
 
 class DistanceSensob(Sensob):
@@ -34,6 +32,7 @@ class DistanceSensob(Sensob):
     def __init__(self):
         """Initializes the object with an Ultrasonic sensor and sets the value to the default
         sensor value"""
+        super(DistanceSensob, self).__init__()
         self.sensors = ultrasonic.Ultrasonic()
         self.value = self.sensors.get_value()
 
@@ -52,6 +51,7 @@ class IRSensob(Sensob):
 
     def __init__(self):
         """initializes the sensor, and sets the value to default value"""
+        super(IRSensob, self).__init__()
         self.sensors = reflectance_sensors.ReflectanceSensors()
         self.value = self.sensors.get_value()
 
@@ -66,10 +66,10 @@ class IRSensob(Sensob):
 
     def get_value(self):
         """Returns true if one of the array value is dark, else returns false"""
-        for i in range(length(self.value)):
-            if self.value[i] < 200:
-                return True
-        return False
+        total_white = 0
+        for value in self.value:
+            total_white += value
+        return 1-total_white/6000
 
 
 class CameraSensob(Sensob):
@@ -77,6 +77,7 @@ class CameraSensob(Sensob):
 
     def __init__(self):
         """Initializes the class with the sensor and value"""
+        super(CameraSensob, self).__init__()
         self.sensors = camera.Camera()
         self.value = self.sensors.get_value()
 
@@ -89,5 +90,12 @@ class CameraSensob(Sensob):
         self.sensors.reset()
         self.value = self.sensors.get_value()
 
-        
+    def get_value(self):
+        pict = self.value()
+        img = list(pict.getdata())
+        counter = 0
+        for i in img:
+            if (i[0] <= 100) and (i[1] >= 200) and (i[3] <= 100):
+                counter += 1
+        return counter/len(img)
 
