@@ -19,10 +19,12 @@ class Behavior:
         self.weight = self.priority * self.match_degree
 
     def consider_deactivation(self):
-        """Called when the behaviour is active. Checks if it should deactivate and does so if needed"""
+        """Called when the behaviour is active.
+        Checks if it should deactivate and does so if needed"""
 
     def consider_activation(self):
-        """Called when the behaviour is inactive. Checks if it should activate and does so if needed"""
+        """Called when the behaviour is inactive.
+        Checks if it should activate and does so if needed"""
 
     def update(self):
         """The main interface between bbcon and behaviour.
@@ -36,16 +38,18 @@ class Behavior:
         self.update_weight()
 
     def sense_and_act(self):
-        """Computations that uses sensob readings to produce motor recommendations. Updates match_degree"""
+        """Computations that uses sensob readings to produce motor recommendations.
+        Updates match_degree"""
 
     def update_weight(self):
+        """Computes the weight"""
         self.weight = self.priority * self.match_degree
 
 
 class AvoidLineBehaviour(Behavior):
     """Behaviour for staying inside the restricted area"""
     def __init__(self):
-        self.__init__()  # Riktig måte?
+        super(AvoidLineBehaviour, self).__init__()
         self.sensobs  # Set this
         self.priority = 1
         self.update_weight()
@@ -63,7 +67,7 @@ class AvoidLineBehaviour(Behavior):
 class CollisionDetectionBehaviour(Behavior):
     """Detects an obstacle and halts the robot. OBS: Halt_request is always True"""
     def __init__(self):
-        self.__init__()  # Riktig måte?
+        super(CollisionDetectionBehaviour, self).__init__()
         self.sensobs  # Set this
         self.halt_request = True
         self.priority = 1
@@ -76,4 +80,23 @@ class CollisionDetectionBehaviour(Behavior):
         """Activates if obstacle"""
 
     def sense_and_act(self):
-        """Updates match_degree"""
+        """Updates match_degree based on proximity"""
+
+
+class AvoidObstacleBehaviour(Behavior):
+    """Activates if the robot got halted by CollisionDetectionBehaviour.
+    Tries to avoid the obstacle"""
+    def __init__(self):
+        super(AvoidObstacleBehaviour, self).__init__()
+        self.sensobs  # Set this
+        self.priority = 1
+        self.update_weight()
+
+    def consider_deactivation(self):
+        """Activates if robot was halted (will need a var in CTRL for this)"""
+
+    def consider_activation(self):
+        """Deactivates if robot no longer halted (will need a var in CTRL for this)"""
+
+    def sense_and_act(self):
+        """Turns away from obstacle. Updates match_degree based on proximity"""
