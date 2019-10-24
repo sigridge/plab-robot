@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dadf5981-ad54-4baf-972c-0779a333914b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/sensob.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sensob.py" beforeDir="false" afterPath="$PROJECT_DIR$/sensob.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -51,7 +51,7 @@
       <updated>1571665303141</updated>
       <workItem from="1571912358124" duration="45000" />
       <workItem from="1571912436529" duration="22000" />
-      <workItem from="1571912487978" duration="1169000" />
+      <workItem from="1571912487978" duration="2516000" />
     </task>
     <servers />
   </component>
