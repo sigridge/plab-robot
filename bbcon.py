@@ -1,8 +1,8 @@
 """Behavior-based controller. Called by robot at each timestep to determine its next move"""
 from time import sleep
 from zumo_button import ZumoButton
+from motob import Motob
 import arbitrator
-
 
 
 class Bbcon:
@@ -13,10 +13,11 @@ class Bbcon:
         self.active_behaviors = []
         self.inactive_behaviors = []
         self.sensobs = []
-        self.motobs = []
+        self.motobs = None
         self.arbitrator = arbitrator(self)
         self.current_timestep = 0
-        # self.robot = None
+        self.halt_request = False
+        self.motor_recs = ''
 
         # One instance per robot -> behaviors, sensobs and motobs are added at initialization
 
@@ -28,12 +29,11 @@ class Bbcon:
 
         # Add all sensobs to BBCON:
         for this_behavior in self.behaviors:
-            for this_sensob in this_behavior.sensobs:
-                if this_sensob not in self.sensobs:  # behaviors use same sensob -> only add once
-                    self.add_sensob(this_sensob)
+            if this_behavior.get_sensob() not in self.sensobs and not None:  # sensobs are only added once
+                self.add_sensob(this_behavior.get_sensob())
 
         # Add motobs
-        # ....
+        self.motobs = Motobs()
 
     def add_behavior(self, new_behavior):
         """append a newly-created behavior object to behaviors list"""
@@ -58,6 +58,8 @@ class Bbcon:
 
         # Update all sensobs:
         for this_sensob in self.sensobs:  # sensobs contains no duplicates because of the adding-process
+            if isinstance(this_sensob, sensob.CameraSensob) and len(self.motor_rec) != 1:
+                continue
             this_sensob.update()  # sensob fetches relevant sensor values (once per timestep)
 
         # Update all behaviors:
@@ -65,11 +67,10 @@ class Bbcon:
             this_behavior.update()
 
         # Invoke arbitrator:
-        motor_rec = self.arbitrator.choose_action()[0]  # returns (motor_rec, half_request)
+        self.motor_recs, self.halt_request = self.arbitrator.choose_action()  # returns (motor_rec, half_request)
 
-        # Update motobs by giving motor recommendations:
-        for this_motob in self.motobs:
-            this_motob.update(motor_rec)
+        # Update the motob by giving motor recommendations:
+        self.motobs[0].update(self.motor_recs)
 
         # Wait:
         sleep(0.5)
@@ -86,6 +87,9 @@ def main():
     ZumoButton().wait_for_press()  # place Zumo in waiting-loop until button is pressed
     while state:
         bbcon.run_one_timestep()
+        if bbcon.halt_request:
+            print('Robot finished')
+            break
 
 
 if __name__ == '__main__':
