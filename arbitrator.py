@@ -12,11 +12,10 @@ class Arbitrator:
     def choose_action(self):
         """Calls deterministic og stochastic choose_action
          depending on value of det_choose_action"""
-        print("entered Choose_action")
         if self.det_choose_action:
-            self.choose_action_deterministic()
+            return self.choose_action_deterministic()
         else:
-            self.choose_action_stochastic()
+            return self.choose_action_stochastic()
 
     def choose_action_deterministic(self):
         """Access all active behaviors from bbcon and chooses the behavior
