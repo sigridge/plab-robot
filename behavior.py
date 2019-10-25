@@ -169,7 +169,7 @@ class AttackBehaviour(Behavior):
     def __init__(self, bbcon):
         super(AttackBehaviour, self).__init__(bbcon)
         self.sensobs = CAMERA_SENSOB
-        self.priority = 10  # Tweak, Must be high
+        self.priority = 100  # Tweak, Must be high
         self.update_weight()
         self.motor_recs = ["F", 0.8]
         self.bbcon.deactivate_behavior(self)
