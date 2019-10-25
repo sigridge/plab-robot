@@ -62,7 +62,8 @@ class Behavior:
         return self.sensobs
 
     def get_halt_request(self):
-        """Returns """
+        """Returns halt_request"""
+        return self.halt_request
 
 
 class SearchBehaviour(Behavior):
