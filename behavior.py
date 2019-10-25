@@ -173,6 +173,7 @@ class AttackBehaviour(Behavior):
         self.update_weight()
         self.motor_recs = ["F", 0.8]
         self.bbcon.deactivate_behavior(self)
+        self.halt_request = True
 
     def update(self):
         """The main interface between bbcon and behaviour.
