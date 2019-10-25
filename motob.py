@@ -1,7 +1,7 @@
 """Impoterer fra en gitt motors fil"""
 from motors import Motors
-#from zumo_button import ZumoButton
-#from time import sleep
+from zumo_button import ZumoButton
+from time import sleep
 
 class Motob():
     """Use this method: update([direction, speed])"""
@@ -33,14 +33,14 @@ class Motob():
         elif self.value[0] == "S":
             self.motors.stop()
 
-#motob = Motob()
-#ZumoButton().wait_for_press()
-#sleep(2)
-#motob.update(["F", 0.5])
-#motob.update(["S"])
-#motob.update(["L", 0.5])
-#motob.update(["F", 0.8])
-#motob.update(["R", 0.5])
-#motob.update(["S"])
-#motob.update(["F", 0.8])
-#motob.update(["S"])
+motob = Motob()
+ZumoButton().wait_for_press()
+sleep(2)
+motob.update(["F", 0.5])
+motob.update(["S"])
+motob.update(["L", 0.5])
+motob.update(["F", 0.8])
+motob.update(["R", 0.5])
+motob.update(["S"])
+motob.update(["F", 0.8])
+motob.update(["S"])
