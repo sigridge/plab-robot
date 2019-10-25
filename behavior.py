@@ -171,7 +171,7 @@ class AttackBehaviour(Behavior):
         self.sensobs = CAMERA_SENSOB
         self.priority = 100  # Tweak, Must be high
         self.update_weight()
-        self.motor_recs = ["F", 0.8]
+        self.motor_recs = ["F", 1.0]
         self.bbcon.deactivate_behavior(self)
         self.halt_request = True
 
