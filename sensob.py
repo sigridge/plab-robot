@@ -66,10 +66,7 @@ class IRSensob(Sensob):
 
     def get_value(self):
         """Returns true if one of the array value is dark, else returns false"""
-        total_white = 0
-        for value in self.value:
-            total_white += value
-        return total_white/6
+        return min(self.value)
 
 
 class CameraSensob(Sensob):
