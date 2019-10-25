@@ -65,9 +65,9 @@ class Behavior:
         """Returns """
 
 
-class SearchBehaviour(Behavior, bbcon):
+class SearchBehaviour(Behavior):
     """Goes forward. Is always active"""
-    def __init__(self):
+    def __init__(self, bbcon):
         super(SearchBehaviour, self).__init__(bbcon)
         self.active_flag = True
         self.motor_recs = ["F", 0.5]
@@ -77,9 +77,9 @@ class SearchBehaviour(Behavior, bbcon):
 
 
 
-class AvoidLineBehaviour(Behavior, bbcon):
+class AvoidLineBehaviour(Behavior):
     """Behaviour for staying inside the restricted area"""
-    def __init__(self):
+    def __init__(self, bbcon):
         super(AvoidLineBehaviour, self).__init__(bbcon)
         self.sensobs = IR_SENSOB
         self.priority = 1  # Tweak
@@ -101,9 +101,9 @@ class AvoidLineBehaviour(Behavior, bbcon):
         self.match_degree = self.sensobs.get_value()
 
 
-class CollisionDetectionBehaviour(Behavior, bbcon):
+class CollisionDetectionBehaviour(Behavior):
     """Detects an obstacle and halts the robot. OBS: Halt_request is always True"""
-    def __init__(self):
+    def __init__(self, bbcon):
         super(CollisionDetectionBehaviour, self).__init__(bbcon)
         self.sensobs = DISTANCE_SENSOB
         self.halt_request = True
@@ -126,10 +126,10 @@ class CollisionDetectionBehaviour(Behavior, bbcon):
         self.match_degree = self.sensobs.get_value() / 50
 
 
-class AvoidObstacleBehaviour(Behavior, bbcon):
+class AvoidObstacleBehaviour(Behavior):
     """Activates if the robot got halted by CollisionDetectionBehaviour.
     Tries to avoid the obstacle"""
-    def __init__(self):
+    def __init__(self, bbcon):
         super(AvoidObstacleBehaviour, self).__init__(bbcon)
         self.sensobs = DISTANCE_SENSOB
         self.priority = 1  # Tweak
@@ -151,9 +151,9 @@ class AvoidObstacleBehaviour(Behavior, bbcon):
         self.match_degree = self.sensobs.get_value() / 50
 
 
-class AttackBehaviour(Behavior, bbcon):
+class AttackBehaviour(Behavior):
     """Crashes into the obstacle if it's red"""
-    def __init__(self):
+    def __init__(self, bbcon):
         super(AttackBehaviour, self).__init__(bbcon)
         self.sensobs = CAMERA_SENSOB
         self.priority = 5  # Tweak, Must be high
