@@ -12,6 +12,7 @@ class Arbitrator:
     def choose_action(self):
         """Calls deterministic og stochastic choose_action
          depending on value of det_choose_action"""
+        print("entered Choose_action")
         if self.det_choose_action:
             self.choose_action_deterministic()
         else:
@@ -29,7 +30,7 @@ class Arbitrator:
                 winner_behavior = this_behavior
                 max_weight = this_behavior.get_weight()
 
-        return winner_behavior.get_motor_recs(), winner_behavior.get_halt_request()
+        return [winner_behavior.get_motor_recs(), winner_behavior.get_halt_request()]
         # return motor recommendation and halt_request of behavior with largest weight
 
     def choose_action_stochastic(self):

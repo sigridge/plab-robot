@@ -70,7 +70,10 @@ class Bbcon:
             this_behavior.update()
 
         # Invoke arbitrator:
-        self.motor_recs, self.halt_request = self.arbitrator.choose_action()  # = (motor_rec, half_request)
+        self.action = self.arbitrator.choose_action()
+        self.motor_recs = self.action[0]
+        self.halt_request = self.action[1]
+        # = (motor_rec, half_request)
 
         # Update the motob by giving motor recommendations:
         self.motobs[0].update(self.motor_recs)
