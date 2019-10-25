@@ -54,7 +54,7 @@ class Bbcon:
     def deactivate_behavior(self, existing_behavior):
         """remove an existing behavior from the active-behaviors list"""
         if existing_behavior in self.active_behaviors:
-            self.active_behaviors.pop(existing_behavior)
+            self.active_behaviors.remove(existing_behavior)
 
     def run_one_timestep(self):
         """method for core BBCON activity"""
