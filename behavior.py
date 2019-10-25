@@ -86,7 +86,7 @@ class AvoidLineBehaviour(Behavior):
         self.sensobs = IR_SENSOB
         self.priority = 2  # Tweak
         self.update_weight()
-        self.motor_recs = ["L", 0.2]
+        self.motor_recs = ["L", 0.5]
         self.bbcon.deactivate_behavior(self)
 
     def consider_activation(self):
@@ -138,7 +138,7 @@ class AvoidObstacleBehaviour(Behavior):
         self.sensobs = DISTANCE_SENSOB
         self.priority = 4  # Tweak
         self.update_weight()
-        self.motor_recs = ["R", 0.2]
+        self.motor_recs = ["R", 0.5]
         self.bbcon.deactivate_behavior(self)
 
     def consider_deactivation(self):
