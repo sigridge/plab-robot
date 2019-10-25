@@ -128,7 +128,7 @@ class CollisionDetectionBehaviour(Behavior):
 
     def sense_and_act(self):
         """Updates match_degree based on proximity"""
-        self.match_degree = self.sensobs.get_value() / 50
+        self.match_degree = self.sensobs.get_value()
         print("******** Collision distance: ", self.sensobs.get_value())
 
 

@@ -8,7 +8,6 @@ class Motob():
 
     def __init__(self):
         self.motors = Motors()
-        print("*******", self.motors)
         self.value = []
 
     def update(self, new_recommendation):

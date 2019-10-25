@@ -47,6 +47,7 @@ class Motors():
         self.persist(dur)
 
     def left(self, speed=0.25, dur=None):
+        print("----------Entered left")
         s = int(self.max * speed)
         if self.dc == 0:
             self.set_left_dir(1)
