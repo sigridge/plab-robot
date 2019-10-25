@@ -84,6 +84,7 @@ class CameraSensob(Sensob):
     def update(self):
         """Updates the sensor and sets the value"""
         self.value = self.sensors.update()
+        print("******* Smile ^^")
 
     def reset(self):
         """Resets the sensor and the value"""
