@@ -99,5 +99,6 @@ class CameraSensob(Sensob):
         for i in img:
             if (i[0] <= 100) and (i[1] >= 200) and (i[2] <= 100):
                 counter += 1
+        print("******Sensob, cam_value: ", counter/len(img))
         return counter/len(img)
 
