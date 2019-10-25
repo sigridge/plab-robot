@@ -93,11 +93,13 @@ class AvoidLineBehaviour(Behavior):
         """Activates if the sensob sees the line"""
         if self.sensobs.get_value() >= 0.75:
             self.bbcon.activate_behavior(self)
+            self.active_flag = True
 
     def consider_deactivation(self):
         """Deactivates if the sensob doesn't see the line"""
         if self.sensobs.get_value() < 0.75:
             self.bbcon.deactivate_behavior(self)
+            self.active_flag = False
 
     def sense_and_act(self):
         """Sets motor recommendations to turn away from the line. Updates match_degree"""
@@ -120,11 +122,13 @@ class CollisionDetectionBehaviour(Behavior):
         """deactivates if no obstacles"""
         if self.sensobs.get_value() > 10:
             self.bbcon.deactivate_behavior(self)
+            self.active_flag = False
 
     def consider_activation(self):
         """Activates if obstacle"""
         if self.sensobs.get_value() <= 10:
             self.bbcon.activate_behavior(self)
+            self.active_flag = True
 
     def sense_and_act(self):
         """Updates match_degree based on proximity"""
@@ -147,11 +151,13 @@ class AvoidObstacleBehaviour(Behavior):
         """Deactivates if robot no longer halted (will need a var in CTRL for this)"""
         if len(self.bbcon.motor_recs) != 1:
             self.bbcon.deactivate_behavior(self)
+            self.active_flag = False
 
     def consider_activation(self):
         """Activates if robot was halted (will need a var in CTRL for this)"""
         if len(self.bbcon.motor_recs) == 1:
             self.bbcon.activate_behavior(self)
+            self.active_flag = True
 
     def sense_and_act(self):
         """Turns away from obstacle. Updates match_degree based on proximity"""
@@ -184,11 +190,13 @@ class AttackBehaviour(Behavior):
         """Deactivates if the robot is no longer halted"""
         if len(self.bbcon.motor_recs) != 1:
             self.bbcon.deactivate_behavior(self)
+            self.active_flag = False
 
     def consider_activation(self):
         """Activates if robot was halted AND the sensobs report X amount of green"""
         if len(self.bbcon.motor_recs) == 1 and self.sensobs.get_value() >= 0.6:
             self.bbcon.activate_behavior(self)
+            self.active_flag = True
             print("******Attack, cam_value: ", self.sensobs.get_value())
 
     def sense_and_act(self):
