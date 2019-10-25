@@ -60,7 +60,7 @@ class Bbcon:
 
         # Update all sensobs:
         for this_sensob in self.sensobs:  # sensobs contains no duplicates
-            if isinstance(this_sensob, sensob.CameraSensob()) and len(self.motor_recs) != 1:
+            if isinstance(this_sensob, sensob.CameraSensob) and len(self.motor_recs) != 1:
                 continue
             this_sensob.update()  # sensob fetches relevant sensor values (once per timestep)
 
