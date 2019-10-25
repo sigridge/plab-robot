@@ -31,9 +31,7 @@ class Motors():
     # is the time (in seconds) that the action will persist.
 
     def forward(self, speed=0.25, dur=None):
-        print("forward")
         self.dc = int(self.max * speed)
-        print(self.dc)
         self.set_left_dir(0)
         self.set_right_dir(0)
         self.set_left_speed(self.dc)

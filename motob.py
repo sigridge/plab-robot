@@ -1,14 +1,13 @@
 """Impoterer fra en gitt motors fil"""
 from motors import Motors
-from zumo_button import ZumoButton
+#from zumo_button import ZumoButton
 #from time import sleep
 
 class Motob():
-    """use this method: update([direction, speed])"""
+    """Use this method: update([direction, speed])"""
 
     def __init__(self):
         self.motors = Motors()
-        ZumoButton().wait_for_press()
         self.value = []
 
     def update(self, new_recommendation):
@@ -19,7 +18,6 @@ class Motob():
     def operationalize(self):
         """Convert a motor recommendation"""
         if self.value[0] == "F":
-            print(self.motors)
             self.motors.forward(self.value[1], 0.2)
         elif self.value[0] == "B":
             self.motors.backward(self.value[1], 0.2)
@@ -31,15 +29,15 @@ class Motob():
             self.motors.right(self.value[1], 1)
         elif self.value[0] == "S":
             self.motors.stop()
-"""
-motob = Motob()
-sleep(2)
-motob.update(["F", 0.8])
-motob.update(["S"])
-motob.update(["L", 0.5])
-motob.update(["F", 0.8])
-motob.update(["R", 0.5])
-motob.update(["S"])
-motob.update(["F", 0.8])
-motob.update(["S"])
-"""
+
+#motob = Motob()
+#ZumoButton().wait_for_press()
+#sleep(2)
+#motob.update(["F", 0.5])
+#motob.update(["S"])
+#motob.update(["L", 0.5])
+#motob.update(["F", 0.8])
+#motob.update(["R", 0.5])
+#motob.update(["S"])
+#motob.update(["F", 0.8])
+#motob.update(["S"])
