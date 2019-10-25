@@ -76,7 +76,7 @@ class Bbcon:
         # = (motor_rec, half_request)
 
         # Update the motob by giving motor recommendations:
-        self.motobs[0].update(self.motor_recs)
+        self.motobs.update(self.motor_recs)
 
         # Wait:
         sleep(0.5)
