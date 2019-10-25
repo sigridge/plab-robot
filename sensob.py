@@ -58,6 +58,7 @@ class IRSensob(Sensob):
     def update(self):
         """Updates the sensor and sets the value to an 6 index array"""
         self.value = self.sensors.update()
+        print(self.value)
 
     def reset(self):
         """Resets the sensors and value"""
@@ -69,7 +70,7 @@ class IRSensob(Sensob):
         total_white = 0
         for value in self.value:
             total_white += value
-        return 1-total_white/6000
+        return 1-(total_white/12000)
 
 
 class CameraSensob(Sensob):
