@@ -20,16 +20,21 @@ class Motob():
         """Convert a motor recommendation"""
         if self.value[0] == "F":
             self.motors.forward(self.value[1], 0.2)
+            print("******Moved forward")
         elif self.value[0] == "B":
             self.motors.backward(self.value[1], 0.2)
+            print("******Moved Back")
         elif self.value[0] == "L":
             self.motors.set_value([0, self.value[1]], 0.8)
             self.motors.left(self.value[1], 1)
+            print("******Moved Left")
         elif self.value[0] == "R":
             self.motors.set_value([self.value[1], 0], 0.8)
             self.motors.right(self.value[1], 1)
+            print("******Moved Right")
         elif self.value[0] == "S":
             self.motors.stop()
+            print("******Stopped")
 
 #motob = Motob()
 #ZumoButton().wait_for_press()
