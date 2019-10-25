@@ -104,7 +104,7 @@ class AvoidLineBehaviour(Behavior):
 
     def sense_and_act(self):
         """Sets motor recommendations to turn away from the line. Updates match_degree"""
-        self.match_degree = self.sensobs.get_value()
+        self.match_degree = (1 - self.sensobs.get_value())
         print("*******IR: ", self.sensobs.get_value())
 
 
