@@ -21,6 +21,7 @@ class Arbitrator:
         """Access all active behaviors from bbcon and chooses the behavior
         with largest weight. Returns motor recommendations of this behavior"""
         active_behaviors = self.bbcon.active_behaviors
+        print(active_behaviors[0])
         winner_behavior = active_behaviors[0]
         max_weight = winner_behavior.get_weight()
         for this_behavior in active_behaviors:
