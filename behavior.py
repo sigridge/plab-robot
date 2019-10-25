@@ -195,7 +195,7 @@ class AttackBehaviour(Behavior):
 
     def consider_activation(self):
         """Activates if robot was halted AND the sensobs report X amount of green"""
-        if len(self.bbcon.motor_recs) == 1 and self.sensobs.get_value() >= 0.6:
+        if len(self.bbcon.motor_recs) == 1 and self.sensobs.get_value() >= 0.1:
             self.bbcon.activate_behavior(self)
             self.active_flag = True
             print("******Attack, cam_value: ", self.sensobs.get_value())
