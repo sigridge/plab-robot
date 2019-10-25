@@ -71,6 +71,8 @@ class SearchBehaviour(Behavior):
         super(SearchBehaviour, self).__init__(bbcon)
         self.active_flag = True
         self.motor_recs = ["F", 0.5]
+        self.bbcon.activate_behavior(self)
+
 
     def update(self):
         """Does nothing"""
@@ -85,6 +87,7 @@ class AvoidLineBehaviour(Behavior):
         self.priority = 1  # Tweak
         self.update_weight()
         self.motor_recs = ["L", 0.5]
+        self.bbcon.deactivate_behavior(self)
 
     def consider_activation(self):
         """Activates if the sensob sees the line"""
@@ -110,6 +113,7 @@ class CollisionDetectionBehaviour(Behavior):
         self.priority = 1  # Tweak
         self.update_weight()
         self.motor_recs = ["S"]
+        self.bbcon.deactivate_behavior(self)
 
     def consider_deactivation(self):
         """deactivates if no obstacles"""
@@ -135,6 +139,7 @@ class AvoidObstacleBehaviour(Behavior):
         self.priority = 1  # Tweak
         self.update_weight()
         self.motor_recs = ["R", 0.5]
+        self.bbcon.deactivate_behavior(self)
 
     def consider_deactivation(self):
         """Deactivates if robot no longer halted (will need a var in CTRL for this)"""
@@ -158,6 +163,7 @@ class AttackBehaviour(Behavior):
         self.sensobs = CAMERA_SENSOB
         self.priority = 5  # Tweak, Must be high
         self.update_weight()
+        self.bbcon.deactivate_behavior(self)
 
     def update(self):
         """The main interface between bbcon and behaviour.
