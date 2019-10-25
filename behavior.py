@@ -120,13 +120,13 @@ class CollisionDetectionBehaviour(Behavior):
 
     def consider_deactivation(self):
         """deactivates if no obstacles"""
-        if self.sensobs.get_value() > 10:
+        if self.sensobs.get_value() > 6:
             self.bbcon.deactivate_behavior(self)
             self.active_flag = False
 
     def consider_activation(self):
         """Activates if obstacle"""
-        if self.sensobs.get_value() <= 10:
+        if self.sensobs.get_value() <= 6:
             self.bbcon.activate_behavior(self)
             self.active_flag = True
 
