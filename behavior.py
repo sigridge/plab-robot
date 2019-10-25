@@ -6,9 +6,6 @@ IR_SENSOB = sensob.IRSensob()
 CAMERA_SENSOB = sensob.CameraSensob()
 
 
-
-
-
 class Behavior:
     """The main behavior class, describes the different methods, and implements dummy methods"""
 
@@ -68,10 +65,10 @@ class Behavior:
         """Returns """
 
 
-class SearchBehaviour(Behavior):
+class SearchBehaviour(Behavior, bbcon):
     """Goes forward. Is always active"""
     def __init__(self):
-        super(SearchBehaviour, self).__init__()
+        super(SearchBehaviour, self).__init__(bbcon)
         self.active_flag = True
         self.motor_recs = ["F", 0.5]
 
@@ -80,10 +77,10 @@ class SearchBehaviour(Behavior):
 
 
 
-class AvoidLineBehaviour(Behavior):
+class AvoidLineBehaviour(Behavior, bbcon):
     """Behaviour for staying inside the restricted area"""
     def __init__(self):
-        super(AvoidLineBehaviour, self).__init__()
+        super(AvoidLineBehaviour, self).__init__(bbcon)
         self.sensobs = IR_SENSOB
         self.priority = 1  # Tweak
         self.update_weight()
@@ -104,10 +101,10 @@ class AvoidLineBehaviour(Behavior):
         self.match_degree = self.sensobs.get_value()
 
 
-class CollisionDetectionBehaviour(Behavior):
+class CollisionDetectionBehaviour(Behavior, bbcon):
     """Detects an obstacle and halts the robot. OBS: Halt_request is always True"""
     def __init__(self):
-        super(CollisionDetectionBehaviour, self).__init__()
+        super(CollisionDetectionBehaviour, self).__init__(bbcon)
         self.sensobs = DISTANCE_SENSOB
         self.halt_request = True
         self.priority = 1  # Tweak
@@ -129,11 +126,11 @@ class CollisionDetectionBehaviour(Behavior):
         self.match_degree = self.sensobs.get_value() / 50
 
 
-class AvoidObstacleBehaviour(Behavior):
+class AvoidObstacleBehaviour(Behavior, bbcon):
     """Activates if the robot got halted by CollisionDetectionBehaviour.
     Tries to avoid the obstacle"""
     def __init__(self):
-        super(AvoidObstacleBehaviour, self).__init__()
+        super(AvoidObstacleBehaviour, self).__init__(bbcon)
         self.sensobs = DISTANCE_SENSOB
         self.priority = 1  # Tweak
         self.update_weight()
@@ -154,10 +151,10 @@ class AvoidObstacleBehaviour(Behavior):
         self.match_degree = self.sensobs.get_value() / 50
 
 
-class AttackBehaviour(Behavior):
+class AttackBehaviour(Behavior, bbcon):
     """Crashes into the obstacle if it's red"""
     def __init__(self):
-        super(AttackBehaviour, self).__init__()
+        super(AttackBehaviour, self).__init__(bbcon)
         self.sensobs = CAMERA_SENSOB
         self.priority = 5  # Tweak, Must be high
         self.update_weight()
