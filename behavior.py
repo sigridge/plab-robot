@@ -70,7 +70,7 @@ class SearchBehaviour(Behavior):
     def __init__(self, bbcon):
         super(SearchBehaviour, self).__init__(bbcon)
         self.active_flag = True
-        self.motor_recs = ["F", 0.5]
+        self.motor_recs = ["F", 0.2]
         self.bbcon.activate_behavior(self)
 
 
@@ -86,7 +86,7 @@ class AvoidLineBehaviour(Behavior):
         self.sensobs = IR_SENSOB
         self.priority = 2  # Tweak
         self.update_weight()
-        self.motor_recs = ["L", 0.5]
+        self.motor_recs = ["L", 0.2]
         self.bbcon.deactivate_behavior(self)
 
     def consider_activation(self):
@@ -138,7 +138,7 @@ class AvoidObstacleBehaviour(Behavior):
         self.sensobs = DISTANCE_SENSOB
         self.priority = 4  # Tweak
         self.update_weight()
-        self.motor_recs = ["R", 0.5]
+        self.motor_recs = ["R", 0.2]
         self.bbcon.deactivate_behavior(self)
 
     def consider_deactivation(self):
@@ -163,6 +163,7 @@ class AttackBehaviour(Behavior):
         self.sensobs = CAMERA_SENSOB
         self.priority = 5  # Tweak, Must be high
         self.update_weight()
+        self.motor_recs = ["F", 0.5]
         self.bbcon.deactivate_behavior(self)
 
     def update(self):
