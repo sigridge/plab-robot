@@ -91,7 +91,7 @@ class CameraSensob(Sensob):
         self.value = self.sensors.get_value()
 
     def get_value(self):
-        pict = self.value()
+        pict = self.value
         img = list(pict.getdata())
         counter = 0
         for i in img:
