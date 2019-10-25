@@ -71,7 +71,7 @@ class SearchBehaviour(Behavior):
     def __init__(self, bbcon):
         super(SearchBehaviour, self).__init__(bbcon)
         self.active_flag = True
-        self.motor_recs = ["F", 0.2]
+        self.motor_recs = ["F", 0.5]
         self.bbcon.activate_behavior(self)
 
 
