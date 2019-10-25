@@ -23,11 +23,11 @@ class Bbcon:
         # One instance per robot -> behaviors, sensobs and motobs are added at initialization
 
         # Add all behaviors to BBCON:
-        self.add_behavior(behavior.SearchBehaviour())
-        self.add_behavior(behavior.AvoidLineBehaviour())
-        self.add_behavior(behavior.CollisionDetectionBehaviour())
-        self.add_behavior(behavior.AvoidObstacleBehaviour())
-        self.add_behavior(behavior.AttackBehaviour())
+        self.add_behavior(behavior.SearchBehaviour(self))
+        self.add_behavior(behavior.AvoidLineBehaviour(self))
+        self.add_behavior(behavior.CollisionDetectionBehaviour(self))
+        self.add_behavior(behavior.AvoidObstacleBehaviour(self))
+        self.add_behavior(behavior.AttackBehaviour(self))
 
         # Add all sensobs to BBCON:
         for this_behavior in self.behaviors:
