@@ -188,6 +188,7 @@ class AttackBehaviour(Behavior):
         """Activates if robot was halted AND the sensobs report X amount of green"""
         if len(self.bbcon.motor_recs) == 1 and self.sensobs.get_value() >= 0.6:
             self.bbcon.activate_behavior(self)
+            print("******Attack, cam_value: ", self.sensobs.get_value())
 
     def sense_and_act(self):
         """Rams into the obstacle. Match_degree based on amount of Green"""
