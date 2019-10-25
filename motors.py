@@ -31,6 +31,7 @@ class Motors():
     # is the time (in seconds) that the action will persist.
 
     def forward(self, speed=0.25, dur=None):
+        print("*******entered forward")
         self.dc = int(self.max * speed)
         self.set_left_dir(0)
         self.set_right_dir(0)
@@ -39,6 +40,7 @@ class Motors():
         self.persist(dur)
 
     def backward(self, speed=0.25, dur=None):
+        print("******Entered backwards")
         self.dc = int(self.max * speed)
         self.set_left_dir(1)
         self.set_right_dir(1)
@@ -47,6 +49,7 @@ class Motors():
         self.persist(dur)
 
     def left(self, speed=0.25, dur=None):
+        print("********Entered left")
         s = int(self.max * speed)
         if self.dc == 0:
             self.set_left_dir(1)
@@ -59,6 +62,7 @@ class Motors():
         self.persist(dur)
 
     def right(self, speed=0.25, dur=None):
+        print("******Entered right")
         s = int(self.max * speed)
         if self.dc == 0:
             self.set_left_dir(0)
@@ -72,6 +76,7 @@ class Motors():
 
 
     def stop(self):
+        print("*******Entered stop")
         self.dc = 0
         self.set_left_speed(self.dc)
         self.set_right_speed(self.dc)
