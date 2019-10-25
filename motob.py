@@ -18,10 +18,10 @@ class Motob():
     def operationalize(self):
         """Convert a motor recommendation"""
         if self.value[0] == "F":
-            self.motors.set_value([1, 1], 0.8)
+            #self.motors.set_value([1, 1], 0.8)
             self.motors.forward(self.value[1], 0.2)
         elif self.value[0] == "B":
-            self.motors.set_value([-1, -1], 0.8)
+            #self.motors.set_value([-1, -1], 0.8)
             self.motors.backward(self.value[1], 0.2)
         elif self.value[0] == "L":
             self.motors.set_value([0, self.value[1]], 0.8)
