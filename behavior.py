@@ -84,7 +84,7 @@ class AvoidLineBehaviour(Behavior):
     def __init__(self, bbcon):
         super(AvoidLineBehaviour, self).__init__(bbcon)
         self.sensobs = IR_SENSOB
-        self.priority = 1  # Tweak
+        self.priority = 1000  # Tweak
         self.update_weight()
         self.motor_recs = ["L", 0.5]
         self.bbcon.deactivate_behavior(self)
@@ -110,7 +110,7 @@ class CollisionDetectionBehaviour(Behavior):
         super(CollisionDetectionBehaviour, self).__init__(bbcon)
         self.sensobs = DISTANCE_SENSOB
         self.halt_request = True
-        self.priority = 1  # Tweak
+        self.priority = 3  # Tweak
         self.update_weight()
         self.motor_recs = ["S"]
         self.bbcon.deactivate_behavior(self)
@@ -136,7 +136,7 @@ class AvoidObstacleBehaviour(Behavior):
     def __init__(self, bbcon):
         super(AvoidObstacleBehaviour, self).__init__(bbcon)
         self.sensobs = DISTANCE_SENSOB
-        self.priority = 1  # Tweak
+        self.priority = 4  # Tweak
         self.update_weight()
         self.motor_recs = ["R", 0.5]
         self.bbcon.deactivate_behavior(self)
