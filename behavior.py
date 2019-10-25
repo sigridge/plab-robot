@@ -70,7 +70,7 @@ class SearchBehaviour(Behavior):
     def __init__(self, bbcon):
         super(SearchBehaviour, self).__init__(bbcon)
         self.active_flag = True
-        self.motor_recs = ["F", 0.2]
+        self.motor_recs = ["F", 0.4]
         self.bbcon.activate_behavior(self)
 
 
@@ -163,7 +163,7 @@ class AttackBehaviour(Behavior):
         self.sensobs = CAMERA_SENSOB
         self.priority = 5  # Tweak, Must be high
         self.update_weight()
-        self.motor_recs = ["F", 0.5]
+        self.motor_recs = ["F", 0.8]
         self.bbcon.deactivate_behavior(self)
 
     def update(self):
