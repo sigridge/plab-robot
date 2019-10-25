@@ -113,7 +113,6 @@ class CollisionDetectionBehaviour(Behavior):
     def __init__(self, bbcon):
         super(CollisionDetectionBehaviour, self).__init__(bbcon)
         self.sensobs = DISTANCE_SENSOB
-        self.halt_request = True
         self.priority = 5  # Tweak
         self.update_weight()
         self.motor_recs = ["S"]
