@@ -58,7 +58,6 @@ class IRSensob(Sensob):
     def update(self):
         """Updates the sensor and sets the value to an 6 index array"""
         self.value = self.sensors.update()
-        print("*******IR values: ", self.value)
 
     def reset(self):
         """Resets the sensors and value"""
@@ -99,6 +98,5 @@ class CameraSensob(Sensob):
         for i in img:
             if (i[0] <= 150) and (i[1] >= 150) and (i[2] <= 150):
                 counter += 1
-        print("******Sensob, cam_value: ", counter/len(img))
         return counter/len(img)
 
