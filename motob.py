@@ -14,6 +14,7 @@ class Motob():
         """Receive a new motor recommendation, load it into the value slot, and operationalize it"""
         self.value = new_recommendation
         self.operationalize()
+        print("******* Updated motob")
 
     def operationalize(self):
         """Convert a motor recommendation"""

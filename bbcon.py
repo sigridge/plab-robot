@@ -74,6 +74,7 @@ class Bbcon:
         self.motor_recs = action[0]
         self.halt_request = action[1]
         # = (motor_rec, half_request)
+        print("******* Motor_recs: ", self.motor_recs)
 
         # Update the motob by giving motor recommendations:
         self.motobs.update(self.motor_recs)
