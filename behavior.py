@@ -71,7 +71,7 @@ class SearchBehaviour(Behavior):
     def __init__(self, bbcon):
         super(SearchBehaviour, self).__init__(bbcon)
         self.active_flag = True
-        self.motor_recs = ["F", 0.2]
+        self.motor_recs = ["F", 0.05]
         self.bbcon.activate_behavior(self)
 
 
@@ -85,7 +85,7 @@ class AvoidLineBehaviour(Behavior):
     def __init__(self, bbcon):
         super(AvoidLineBehaviour, self).__init__(bbcon)
         self.sensobs = IR_SENSOB
-        self.priority = 2  # Tweak
+        self.priority = 4  # Tweak
         self.update_weight()
         self.motor_recs = ["L", 0.5]
         self.bbcon.deactivate_behavior(self)
