@@ -15,7 +15,7 @@ class Behavior:
         self.sensobs = None  # a single sensob, or an array of them
         self.motor_recs = None  # Specific to the behaviour
         self.active_flag = False  # True if active, false if inactive
-        self.halt_request = None  # True if the behaviour wants the robot to shut down
+        self.halt_request = False  # True if the behaviour wants the robot to shut down
         self.priority = 1  # How important this specific behaviour is in relation to the others
         # a float in the range [0,1] that indicates how important the behaviour
         # is based on the current conditions
