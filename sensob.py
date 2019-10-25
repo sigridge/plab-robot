@@ -95,7 +95,7 @@ class CameraSensob(Sensob):
         img = list(pict.getdata())
         counter = 0
         for i in img:
-            if (i[0] <= 100) and (i[1] >= 200) and (i[3] <= 100):
+            if (i[0] <= 100) and (i[1] >= 200) and (i[2] <= 100):
                 counter += 1
         return counter/len(img)
 
