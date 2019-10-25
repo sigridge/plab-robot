@@ -159,6 +159,18 @@ class AttackBehaviour(Behavior):
         self.priority = 5  # Tweak, Must be high
         self.update_weight()
 
+    def update(self):
+        """The main interface between bbcon and behaviour.
+        Updates the activity status, calls sense_and_act, updates weight. Does not call sense_and_act if inactive"""
+        if self.active_flag:
+            self.consider_deactivation()
+        else:
+            self.consider_activation()
+
+        if self.active_flag:
+            self.sense_and_act()
+            self.update_weight()
+
     def consider_deactivation(self):
         """Deactivates if the robot is no longer halted"""
         if len(self.bbcon.motor_recs) != 1:
