@@ -70,7 +70,7 @@ class IRSensob(Sensob):
         total_white = 0
         for value in self.value:
             total_white += value
-        return 1-(total_white/12000)
+        return total_white/6
 
 
 class CameraSensob(Sensob):

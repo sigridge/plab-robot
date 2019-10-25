@@ -92,13 +92,13 @@ class AvoidLineBehaviour(Behavior):
 
     def consider_activation(self):
         """Activates if the sensob sees the line"""
-        if self.sensobs.get_value() >= 0.75:
+        if self.sensobs.get_value() <= 0.3:
             self.bbcon.activate_behavior(self)
             self.active_flag = True
 
     def consider_deactivation(self):
         """Deactivates if the sensob doesn't see the line"""
-        if self.sensobs.get_value() < 0.75:
+        if self.sensobs.get_value() > 0.3:
             self.bbcon.deactivate_behavior(self)
             self.active_flag = False
 
