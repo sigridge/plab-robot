@@ -49,7 +49,7 @@ class Behavior:
         """Computes the weight"""
         self.weight = self.priority * self.match_degree
 
-    def get_weigth(self):
+    def get_weight(self):
         """Return the weight"""
         return self.weight
 
