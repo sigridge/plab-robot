@@ -30,9 +30,14 @@ class Bbcon:
         self.add_behavior(behavior.AttackBehaviour(self))
 
         # Add all sensobs to BBCON:
+        i = 0
         for this_behavior in self.behaviors:
-            if this_behavior.get_sensob() not in self.sensobs and not None:  # sensobs added once
+            println("behaviour " + i)
+            if (this_behavior.get_sensob() not in self.sensobs) and (this_behavior.get_sensob() is not None):  # sensobs added once
                 self.add_sensob(this_behavior.get_sensob())
+                println("Added sensob")
+            i += 1
+
 
         # Add motobs
         self.motobs = motob.Motob()
